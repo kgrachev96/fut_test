@@ -17,8 +17,6 @@ export default class App extends React.Component<any, any> {
       filteredUsers: null,
       order: false
     };
-
-    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentWillMount() {
@@ -34,12 +32,6 @@ export default class App extends React.Component<any, any> {
         console.error(err)
       })
   }
-
-  handleSelect(eventKey: any) {
-    this.setState({
-      activePage: eventKey
-    });
-  };
 
     selectUser = (user: any) => {
         this.state.activeUser = user;
