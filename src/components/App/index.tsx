@@ -86,17 +86,6 @@ export default class App extends React.Component<any, any> {
   render() {
     return(
       <div className="app container-fluid">
-        <Pagination
-        prev
-        next
-        first
-        last
-        ellipsis
-        boundaryLinks
-        items={20}
-        maxButtons={5}
-        activePage={this.state.activePage}
-        onSelect={this.handleSelect} />
         <div className="row">
           <div className="col-sm-12">
           <SearchBar searchValue={this.state.searchValue} changeValue={this.search}/> 
