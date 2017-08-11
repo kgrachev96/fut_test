@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Pagination} from 'react-bootstrap';
 
 import UserList from '../UserList';
 import ActiveUser from '../ActiveUser';
