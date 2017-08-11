@@ -13,12 +13,9 @@ export default class App extends React.Component<any, any> {
     super(props);
     // Устанавливаем состояние
     this.state = {
-      searchValue: '',
       users: [],
       filteredUsers: null,
-      sortBy: false,
-      order: false,
-      activePage: 1
+      order: false
     };
 
     this.handleSelect = this.handleSelect.bind(this);
