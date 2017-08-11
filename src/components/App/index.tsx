@@ -1,11 +1,14 @@
 import * as React from 'react';
+import {Pagination} from 'react-bootstrap';
 
 import UserList from '../UserList';
 import ActiveUser from '../ActiveUser';
 import SearchBar from '../SearchBar';
+import Toolbar from '../Toolbar';
 
 const dataURL = 'http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}';
 const bigDataURL = 'http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}';
+
 export default class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -15,8 +18,11 @@ export default class App extends React.Component<any, any> {
       users: [],
       filteredUsers: null,
       sortBy: false,
-      order: false
+      order: false,
+      activePage: 1
     };
+
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentWillMount() {
@@ -33,9 +39,40 @@ export default class App extends React.Component<any, any> {
       })
   }
 
+  handleSelect(eventKey: any) {
+    this.setState({
+      activePage: eventKey
+    });
+  };
+
     selectUser = (user: any) => {
         this.state.activeUser = user;
         this.setState(this.state);
+    };
+
+    
+     sortByName = () => {
+        this.state.order = !this.state.order;
+        this.state.filteredUsers = this.state.filteredUsers.sort((a: any, b: any) => {
+            return (this.state.order ? 1 : -1) * ((a.firstName < b.firstName) ? -1 : (a.firstName > b.firstName) ? 1 : 0);
+        });
+        this.selectUser(this.state.filteredUsers[0]);
+    };
+
+    sortByID = () => {
+        this.state.order = !this.state.order;
+        this.state.filteredUsers = this.state.filteredUsers.sort((a: any, b: any) => {
+            return (this.state.order ? 1 : -1) * ((a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
+        });
+        this.selectUser(this.state.filteredUsers[0]);
+    };
+
+    sortByLastName = () => {
+      this.state.order = !this.state.order;
+      this.state.filteredUsers = this.state.filteredUsers.sort((a: any, b: any) => {
+          return (this.state.order ? 1 : -1) * ((a.lastName < b.lastName) ? -1 : (a.lastName > b.lastName) ? 1 : 0);
+      });
+      this.selectUser(this.state.filteredUsers[0]);
     };
 
     search = (val: any) => {
@@ -49,9 +86,26 @@ export default class App extends React.Component<any, any> {
   render() {
     return(
       <div className="app container-fluid">
+        <Pagination
+        prev
+        next
+        first
+        last
+        ellipsis
+        boundaryLinks
+        items={20}
+        maxButtons={5}
+        activePage={this.state.activePage}
+        onSelect={this.handleSelect} />
         <div className="row">
           <div className="col-sm-12">
           <SearchBar searchValue={this.state.searchValue} changeValue={this.search}/> 
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-12">
+            <Toolbar sortByName={this.sortByName} sortByID={this.sortByID} sortByLastName = {this.sortByLastName}/>
           </div>
         </div>
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import './style.scss';
 
-
 export default class ActiveUser extends React.Component<any, any> {
     render() {
         if (!this.props.user) {
@@ -16,15 +15,12 @@ export default class ActiveUser extends React.Component<any, any> {
                     <table className="user-info table table-responsive">
                         <tbody>
                         <tr>
-                            <td>Address:</td>
                             <td>
-                            <b>{this.props.user.address.city}</b>
-                            </td>
-                        </tr>
-                                                <tr>
-                            <td>Address:</td>
-                            <td>
-                            <b>{this.props.user.address.city}</b>
+                            <p><h2>Address</h2></p>
+                            <p><b>Street: </b>{this.props.user.address.streetAddress}</p>
+                            <p><b>City: </b>{this.props.user.address.city}</p>
+                            <p><b>State: </b>{this.props.user.address.state}</p>
+                            <p><b>Zip: </b>{this.props.user.address.zip}</p>
                             </td>
                         </tr>
                         </tbody>
